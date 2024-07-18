@@ -26,8 +26,30 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #171717;
+  border-radius: 3px;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+@layer components {
+  .intense-button {
+    @apply bg-neutral-900 rounded-md px-6 py-2 hover:opacity-75 transition-all;
+  }
+  .thin-button {
+    @apply border-[1px] border-neutral-900 bg-transparent rounded-md px-[23px] py-[7px] transition-all hover:bg-neutral-900 text-neutral-50;
   }
 }

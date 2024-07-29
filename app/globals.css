@@ -53,3 +53,20 @@ body {
     @apply border-[1px] border-neutral-900 bg-transparent rounded-md px-[23px] py-[7px] transition-all hover:bg-neutral-900 text-neutral-50;
   }
 }
+
+.svg {
+  animation: svg 3s ease-in-out 2s 2 alternate;
+  transform: rotate(12deg);
+}
+
+@keyframes svg {
+  0% {
+    transform: rotate(12deg);
+  }
+  66% {
+    transform: rotate(9deg);
+  }
+  100% {
+    transform: rotate(12deg);
+  }
+}

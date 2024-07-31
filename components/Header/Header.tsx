@@ -14,7 +14,7 @@ export default function Header() {
           priority
         />
       </div>
-      <div className="w-1/3 flex items-center justify-end gap-4">
+      <div className="xl:w-1/3 flex items-center justify-end gap-4">
         <LoginButton />
         <RegisterButton />
       </div>

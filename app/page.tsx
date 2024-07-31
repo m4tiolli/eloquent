@@ -6,6 +6,8 @@ import mockup from "../public/mockup.png";
 import mockupfront from "../public/mockup-front.png";
 import classNames from "classnames";
 import { useRef } from "react";
+import { FaCheck } from "react-icons/fa6";
+import { FaTimes } from "react-icons/fa";
 
 interface Dados {
   id: number;
@@ -82,7 +84,7 @@ const dados: Dados[] = [
 
 const CardPrices = ({ dado }: { dado: Dados }) => {
   return (
-    <div className=" w-[22%] h-full flex flex-col items-center justify-start py-6 px-2 rounded-lg border-[1px] border-white relative overflow-clip box-border hover:scale-[1.05] transition-all cursor-pointer">
+    <div className=" xl:w-[22%] w-[90%] h-fit pb-28 xl:pb-0 xl:h-full flex flex-col items-center justify-start py-6 px-2 rounded-lg border-[1px] border-white relative overflow-clip box-border gap-4 hover:scale-[1.05] transition-all cursor-pointer">
       <div
         className={classNames("h-6 w-full -rotate-45 absolute -left-20 top-0", {
           "bg-white": dado.id == 2,
@@ -93,7 +95,46 @@ const CardPrices = ({ dado }: { dado: Dados }) => {
         <h1 className="font-bold text-3xl">{`R$${dado.price}`}</h1>
         <p>/month</p>
       </span>
-      <button className="flex items-center justify-between px-4 py-2 rounded-md border-[1px] border-white hover:opacity-75 transition-all hover:bg-white hover:text-black hover:font-semibold">
+      <ul className="font-thin">
+        <li className="flex items-center gap-2">
+          <FaCheck className="text-md text-green-300" />
+          {dado.id === 4 ? "+" : ""}
+          {dado.beneficios.contas} account{dado.id === 1 ? "" : "s"}
+        </li>
+        <li className="flex items-center gap-2">
+          <FaCheck className="text-md text-green-300" />
+          {dado.beneficios.customizacao ? "Customizable" : ""}
+        </li>
+        <li className="flex items-center gap-2">
+          <FaCheck className="text-md text-green-300" />
+          {dado.beneficios.alertas ? "Get alerts of invoices" : ""}
+        </li>
+        <li className="flex items-center gap-2">
+          <FaCheck className="text-md text-green-300" />
+          {dado.beneficios.historico} days history
+        </li>
+        <li className="flex items-center gap-2">
+          <FaCheck className="text-md text-green-300" />
+          {dado.beneficios.previsao} days forecast
+        </li>
+        <li className="flex items-center gap-2">
+          {dado.beneficios.aplicativo ? (
+            <FaCheck className="text-md text-green-300" />
+          ) : (
+            <FaTimes className="text-md text-red-300" />
+          )}
+          Mobile app
+        </li>
+        <li className="flex items-center gap-2">
+          {dado.beneficios.temporeal ? (
+            <FaCheck className="text-md text-green-300" />
+          ) : (
+            <FaTimes className="text-md text-red-300" />
+          )}
+          Realtime atualization
+        </li>
+      </ul>
+      <button className="flex items-center justify-between px-4 py-2 rounded-md border-[1px] border-white hover:opacity-75 transition-all hover:bg-white hover:text-black hover:font-semibold absolute bottom-8">
         Start now
       </button>
     </div>
@@ -110,24 +151,20 @@ export default function Home() {
     <main className="select-none snap-y snap-proximity scroll-smooth">
       <Header />
       <div
-        className="h-dvh w-full px-20 flex items-center justify-between snap-start"
+        className="h-dvh w-full xl:px-20 flex xl:flex-row flex-col items-center xl:justify-between justify-center xl:py-0 px-10 gap-12 xl:gap-0 snap-start"
         ref={section1}
       >
         <Image
           src={mockup}
           alt="Phone"
           sizes="50%"
-          style={{
-            width: "50%",
-            height: "65%",
-            objectFit: "contain",
-            objectPosition: "left",
-          }}
+          className="xl:h-[65%] xl:w-1/2 object-contain xl:object-left h-1/3 w-full"
           quality={100}
-          placeholder="blur"
+          placeholder="empty"
+          decoding="sync"
           priority
         />
-        <h1 className="text-7xl font-bold w-1/2">
+        <h1 className="xl:text-7xl font-bold xl:w-1/2 w-full text-5xl">
           A new way to manage your bills
         </h1>
         <BsChevronCompactDown
@@ -142,20 +179,29 @@ export default function Home() {
         />
       </div>
       <div
-        className="h-dvh w-full px-20 flex items-center justify-between relative snap-start"
+        className="h-dvh w-full xl:px-20 flex items-center xl:justify-between xl:flex-row flex-col relative justify-center snap-start px-10 gap-6 xl:gap-0"
         ref={section2}
       >
-        <h1 className="text-7xl font-bold w-1/2">
+        <h1 className="xl:text-7xl font-bold xl:w-1/2 text-5xl w-full">
           Have as much control as possible over your bills
         </h1>
-        <div className="w-2/5 flex flex-col items-left gap-4 justify-center">
+        <div className="xl:w-2/5 flex flex-col items-left gap-4 justify-center">
           <p>
             With the <i>Eloquent&trade;</i> you have control over your
             individual and shared expenses with accurate forecasts.
           </p>
-          <button className="flex items-center justify-between px-4 w-[30%] pr-6 py-2 rounded-md border-[1px] border-white hover:brightness-125 hover:opacity-75 transition-all group">
+          <button
+            onClick={() =>
+              window.scrollTo({
+                top: (section3.current as HTMLDivElement).offsetTop,
+                left: 0,
+                behavior: "smooth",
+              })
+            }
+            className="flex items-center justify-between px-4 xl:w-[30%] w-fit pr-6 py-2 rounded-md border-[1px] border-white xl:hover:brightness-125 xl:hover:opacity-75 hover:bg-white hover:text-black hover:font-regular transition-all group"
+          >
             See prices{" "}
-            <BsChevronRight className="group-hover:translate-x-2 transition-all" />{" "}
+            <BsChevronRight className="group-hover:translate-x-2 transition-all" />
           </button>
         </div>
         <BsChevronCompactDown
@@ -170,24 +216,24 @@ export default function Home() {
         />
       </div>
       <div
-        className="h-dvh w-full px-20 py-20 flex items-center justify-center gap-12 snap-end relative flex-col"
+        className="xl:h-dvh min-h-dvh w-full xl:px-20 px-10 py-20 flex items-center justify-center gap-12 snap-end relative flex-col"
         ref={section3}
       >
         <h1 className="font-bold text-4xl">
           Select the best offer for your use.
         </h1>
-        <div className="h-full w-full flex items-center justify-center gap-12">
+        <div className="h-full w-full flex items-center justify-center xl:flex-row flex-col gap-12">
           {dados.map((dado, index) => (
             <CardPrices key={index++} dado={dado} />
           ))}
         </div>
       </div>
       <div
-        className="h-dvh w-full px-20 py-32 flex items-center justify-start gap-12 snap-end overflow-y-clip relative flex-col"
+        className="h-dvh w-full xl:px-20 px-10 py-32 flex items-center justify-start gap-12 snap-end overflow-y-clip relative flex-col"
         ref={section4}
       >
         <h1 className="text-5xl font-bold">
-          Work on big ideas, without the busywork.
+          Stop stressing about the bills and leave it to us.
         </h1>
         <button className="flex items-center justify-between px-4 py-2 rounded-md border-[1px] border-white hover:opacity-75 transition-all hover:bg-white hover:text-black hover:font-semibold">
           Get started now
@@ -196,18 +242,12 @@ export default function Home() {
           src={mockupfront}
           alt="Phone"
           sizes="50%"
-          style={{
-            width: "70%",
-            height: "85%",
-            objectFit: "contain",
-            objectPosition: "center",
-          }}
           quality={100}
           placeholder="blur"
           priority
-          className="absolute -bottom-60 z-[3]"
+          className="absolute -bottom-60 z-[3] xl:w-[70%] object-contain xl:h-[85%] h-[60%]"
         />
-        <div className="w-[1000px] h-[1000px] absolute -bottom-[130vh] z-[2] bg-[#171717] rounded-full"></div>
+        <div className="xl:w-[1000px] xl:h-[1000px] absolute xl:-bottom-[130vh] z-[2] bg-[#171717] rounded-full size-[350px] -bottom-[25vh]"></div>
       </div>
     </main>
   );

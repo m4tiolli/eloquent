@@ -4,6 +4,6 @@ interface RouterProp {
   router: AppRouterInstance
 }
 
-export default function RegisterButton({router}: RouterProp) {
+export default function RegisterButton({router}: Readonly<RouterProp>) {
   return <button className="intense-button" onClick={() => router.push("/register")}>Sign up</button>;
 }

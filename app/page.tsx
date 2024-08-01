@@ -8,6 +8,7 @@ import classNames from "classnames";
 import { useRef } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { FaTimes } from "react-icons/fa";
+import { useColorMode } from "@chakra-ui/react";
 
 interface Dados {
   id: number;
@@ -84,18 +85,20 @@ const dados: Dados[] = [
 
 const CardPrices = ({ dado }: { dado: Dados }) => {
   return (
-    <div className=" xl:w-[22%] w-[90%] h-fit pb-28 xl:pb-0 xl:h-full flex flex-col items-center justify-start py-6 px-2 rounded-lg border-[1px] border-white relative overflow-clip box-border gap-4 hover:scale-[1.05] transition-all cursor-pointer">
+    <div className=" xl:w-[22%] w-[90%] h-fit pb-28 xl:pb-0 xl:h-full flex flex-col items-center justify-start py-6 px-2 rounded-lg border-[1px] dark:border-white border-neutral-300 relative overflow-clip box-border gap-4 hover:scale-[1.05] transition-all cursor-pointer">
       <div
         className={classNames("h-6 w-full -rotate-45 absolute -left-20 top-0", {
-          "bg-white": dado.id == 2,
+          "dark:bg-white bg-neutral-800": dado.id == 2,
         })}
       ></div>
-      <h1 className="font-bold text-3xl">{dado.nome}</h1>
-      <span className="flex items-start gap-1">
+      <h1 className="font-bold text-3xl dark:text-white text-neutral-800">
+        {dado.nome}
+      </h1>
+      <span className="flex items-start gap-1 dark:text-white text-neutral-800">
         <h1 className="font-bold text-3xl">{`R$${dado.price}`}</h1>
         <p>/month</p>
       </span>
-      <ul className="font-thin">
+      <ul className="dark:font-thin font-normal">
         <li className="flex items-center gap-2">
           <FaCheck className="text-md text-green-300" />
           {dado.id === 4 ? "+" : ""}
@@ -134,7 +137,7 @@ const CardPrices = ({ dado }: { dado: Dados }) => {
           Realtime atualization
         </li>
       </ul>
-      <button className="flex items-center justify-between px-4 py-2 rounded-md border-[1px] border-white hover:opacity-75 transition-all hover:bg-white hover:text-black hover:font-semibold absolute bottom-8">
+      <button className="flex items-center justify-between px-4 py-2 rounded-md border-[1px] border-white hover:opacity-75 transition-all dark:hover:bg-white dark:hover:text-black dark:hover:font-semibold absolute bottom-8 bg-neutral-800 dark:bg-transparent text-white">
         Start now
       </button>
     </div>
@@ -147,11 +150,13 @@ export default function Home() {
   const section3 = useRef<HTMLDivElement>(null);
   const section4 = useRef<HTMLDivElement>(null);
 
+  const {toggleColorMode} = useColorMode()
+
   return (
-    <main className="select-none snap-y snap-proximity scroll-smooth">
+    <main className="select-none snap-y snap-proximity scroll-smooth dark:bg-black">
       <Header />
       <div
-        className="h-dvh w-full xl:px-20 flex xl:flex-row flex-col items-center xl:justify-between justify-center xl:py-0 px-10 gap-12 xl:gap-0 snap-start"
+        className="h-dvh w-full xl:px-20 flex xl:flex-row flex-col items-center xl:justify-between justify-center xl:py-0 px-10 gap-12 xl:gap-0 snap-start relative"
         ref={section1}
       >
         <Image
@@ -163,12 +168,13 @@ export default function Home() {
           placeholder="empty"
           decoding="sync"
           priority
+          onClick={toggleColorMode}
         />
-        <h1 className="xl:text-7xl font-bold xl:w-1/2 w-full text-5xl">
+        <h1 className="xl:text-7xl font-bold xl:w-1/2 w-full text-5xl dark:text-white text-neutral-800">
           A new way to manage your bills
         </h1>
         <BsChevronCompactDown
-          className="text-white animate-pulse cursor-pointer text-4xl absolute bottom-3 left-1/2 -translate-x-1/2 flex"
+          className="dark:text-white text-neutral-800 animate-pulse cursor-pointer text-4xl absolute bottom-3 left-1/2 -translate-x-1/2 flex"
           onClick={() =>
             window.scrollTo({
               top: (section2.current as HTMLDivElement).offsetTop,
@@ -182,11 +188,11 @@ export default function Home() {
         className="h-dvh w-full xl:px-20 flex items-center xl:justify-between xl:flex-row flex-col relative justify-center snap-start px-10 gap-6 xl:gap-0"
         ref={section2}
       >
-        <h1 className="xl:text-7xl font-bold xl:w-1/2 text-5xl w-full">
+        <h1 className="xl:text-7xl font-bold xl:w-1/2 text-5xl w-full dark:text-white text-neutral-800">
           Have as much control as possible over your bills
         </h1>
-        <div className="xl:w-2/5 flex flex-col items-left gap-4 justify-center">
-          <p>
+        <div className="xl:w-2/5 flex flex-col items-left gap-4 justify-center ">
+          <p className="dark:text-white text-neutral-800 font-normal">
             With the <i>Eloquent&trade;</i> you have control over your
             individual and shared expenses with accurate forecasts.
           </p>
@@ -198,7 +204,7 @@ export default function Home() {
                 behavior: "smooth",
               })
             }
-            className="flex items-center justify-between px-4 xl:w-[30%] w-fit pr-6 py-2 rounded-md border-[1px] border-white xl:hover:brightness-125 xl:hover:opacity-75 hover:bg-white hover:text-black hover:font-regular transition-all group"
+            className="flex items-center justify-between px-4 xl:w-[30%] w-fit pr-6 py-2 rounded-md border-[1px] dark:border-white border-neutral-800 dark:text-white text-neutral-800 dark:font-normal font-medium xl:hover:brightness-125 xl:hover:opacity-75 hover:bg-white hover:text-black hover:font-regular transition-all group"
           >
             See prices{" "}
             <BsChevronRight className="group-hover:translate-x-2 transition-all" />
@@ -219,7 +225,7 @@ export default function Home() {
         className="xl:h-dvh min-h-dvh w-full xl:px-20 px-10 py-20 flex items-center justify-center gap-12 snap-end relative flex-col"
         ref={section3}
       >
-        <h1 className="font-bold text-4xl">
+        <h1 className="font-bold text-4xl dark:text-white text-neutral-800">
           Select the best offer for your use.
         </h1>
         <div className="h-full w-full flex items-center justify-center xl:flex-row flex-col gap-12">
@@ -232,10 +238,10 @@ export default function Home() {
         className="h-dvh w-full xl:px-20 px-10 py-32 flex items-center justify-start gap-12 snap-end overflow-y-clip relative flex-col"
         ref={section4}
       >
-        <h1 className="text-5xl font-bold">
+        <h1 className="text-5xl font-bold dark:text-white text-neutral-800">
           Stop stressing about the bills and leave it to us.
         </h1>
-        <button className="flex items-center justify-between px-4 py-2 rounded-md border-[1px] border-white hover:opacity-75 transition-all hover:bg-white hover:text-black hover:font-semibold">
+        <button className="flex items-center justify-between px-4 py-2 rounded-md border-[1px] dark:border-white border-neutral-800 text-neutral-800 dark:text-white hover:opacity-75 transition-all dark:hover:bg-white dark:hover:text-black dark:hover:font-semibold">
           Get started now
         </button>
         <Image
@@ -247,7 +253,7 @@ export default function Home() {
           priority
           className="absolute -bottom-60 z-[3] xl:w-[70%] object-contain xl:h-[85%] h-[60%]"
         />
-        <div className="xl:w-[1000px] xl:h-[1000px] absolute xl:-bottom-[130vh] z-[2] bg-[#171717] rounded-full size-[350px] -bottom-[25vh]"></div>
+        <div className="xl:w-[1000px] xl:h-[1000px] absolute xl:-bottom-[130vh] z-[2] bg-neutral-400 dark:bg-[#171717] rounded-full size-[350px] -bottom-[25vh]"></div>
       </div>
     </main>
   );

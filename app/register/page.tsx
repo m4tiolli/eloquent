@@ -1,11 +1,13 @@
 "use client";
 import Image from "next/image";
 import mockuplogin from "../../public/mockup-login.png";
-import classNames from "classnames";
 import { useState } from "react";
 import Input, { Props } from "@/components/Input";
+import ActivityIndicator from "@/components/ActivityIndicator";
+import classNames from "classnames";
 
 interface FormData {
+  [key: string]: string;
   name: string;
   username: string;
   email: string;
@@ -21,7 +23,7 @@ function Register() {
     password: "",
     confirmpassword: "",
   };
-
+  const [loading, setLoading] = useState(false);
   const [values, setValues] = useState<FormData>(initialValues);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,8 +64,23 @@ function Register() {
       placeholder: "Confirm Password",
       value: values.confirmpassword,
       onchange: handleInputChange,
-    }
+    },
   ];
+
+  const invalid = () => {
+    for (let key in values) {
+      if (values[key] === "") {
+        return true;
+      }
+    }
+  };
+
+  const handleRegister = () => {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000)
+  };
 
   return (
     <main className="h-dvh w-full flex items-center justify-between px-20 relative">
@@ -72,7 +89,20 @@ function Register() {
         {inputs.map((input) => (
           <Input key={input.name} {...input} />
         ))}
-        <button className="w-full h-12 rounded-md bg-white text-black font-medium transition-all hover:opacity-75">Create account</button>
+        <button
+          disabled={invalid()}
+          onClick={handleRegister}
+          className={classNames(
+            "w-full h-12 rounded-md bg-white text-black font-medium transition-all hover:opacity-75",
+            { "opacity-50 cursor-not-allowed": invalid() ?? loading }
+          )}
+        >
+          {loading ? (
+            <ActivityIndicator color="border-black" />
+          ) : (
+            "Create account"
+          )}
+        </button>
       </div>
       <div className="w-2/5 h-4/5 gap-12 flex items-end justify-center flex-col">
         <h1 className="font-bold text-5xl">
@@ -84,6 +114,7 @@ function Register() {
           sizes="40%"
           className="w-full h-3/5 object-contain object-center"
         />
+        
       </div>
     </main>
   );

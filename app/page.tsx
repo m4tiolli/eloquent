@@ -204,7 +204,7 @@ export default function Home() {
                 behavior: "smooth",
               })
             }
-            className="flex items-center justify-between px-4 xl:w-[30%] w-fit pr-6 py-2 rounded-md border-[1px] dark:border-white border-neutral-800 dark:text-white text-neutral-800 dark:font-normal font-medium xl:hover:brightness-125 xl:hover:opacity-75 hover:bg-white hover:text-black hover:font-regular transition-all group"
+            className="flex items-center justify-between px-4 xl:w-[30%] w-fit pr-6 py-2 rounded-md border-[1px] dark:border-white border-neutral-800 dark:text-white text-neutral-800 dark:font-normal font-medium xl:hover:brightness-125 xl:hover:opacity-75 hover:bg-white hover:text-black hover:font-semibold transition-all group"
           >
             See prices{" "}
             <BsChevronRight className="group-hover:translate-x-2 transition-all" />

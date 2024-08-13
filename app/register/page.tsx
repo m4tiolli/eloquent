@@ -5,6 +5,7 @@ import { useState } from "react";
 import Input, { Props } from "@/components/Input";
 import ActivityIndicator from "@/components/ActivityIndicator";
 import classNames from "classnames";
+import { useToast } from "@chakra-ui/react";
 
 interface FormData {
   [key: string]: string;
@@ -16,6 +17,7 @@ interface FormData {
 }
 
 function Register() {
+  const toast = useToast();
   const initialValues: FormData = {
     name: "",
     username: "",
@@ -75,15 +77,52 @@ function Register() {
     }
   };
 
-  const handleRegister = () => {
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-    }, 3000)
+  const handleRegister = async () => {
+    try {
+      setLoading(true);
+
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: values.name,
+          username: values.username,
+          email: values.email,
+          password: values.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        toast({
+          title: "Account created!",
+          description: "Looks great",
+          status: "success",
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "An error occurred",
+          description: "An error occurred while registering.",
+          status: "error",
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "An error occurred",
+        description: "An error occurred while registering.",
+        status: "error",
+        isClosable: true,
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <main className="h-dvh w-full flex items-center justify-between px-20 relative">
+    <main className="h-dvh w-full flex items-center justify-between px-20 relative select-none">
       <div className="w-2/5 h-4/5 border-[1px] border-[#171717] rounded-xl flex flex-col items-center justify-start py-8 px-10 gap-4">
         <h1 className="font-bold text-3xl">Create your account</h1>
         {inputs.map((input) => (
@@ -114,7 +153,6 @@ function Register() {
           sizes="40%"
           className="w-full h-3/5 object-contain object-center"
         />
-        
       </div>
     </main>
   );
